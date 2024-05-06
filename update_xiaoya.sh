@@ -1,6 +1,6 @@
 BASE_DIR=/etc/xiaoya
-PORT1=4567
-PORT2=5344
+PORT1=1978
+PORT2=1945
 PORT3=5345
 TAG="latest"
 UPDATE=false
@@ -11,8 +11,8 @@ MOUNT=""
 usage(){
   echo "Usage: $0 [ -d BASE_DIR ] [ -p PORT1 ] [ -P PORT2 ] [ -t TAG ] [ -v MOUNT ] [ -u ] [ -l ]"
   echo "-d BASE_DIR    数据目录，默认：/etc/xiaoya"
-  echo "-p PORT1       管理界面端口，默认：4567"
-  echo "-P PORT2       小雅AList端口，默认：5344"
+  echo "-p PORT1       管理界面端口，默认：1978"
+  echo "-P PORT2       小雅AList端口，默认：1945"
   echo "-t TAG         Docker镜像标签，默认：latest"
   echo "-u             检查镜像更新"
   echo "-l             输出docker日志"
@@ -79,9 +79,9 @@ case "$TAG" in
 esac
 
 echo -e "\e[36m使用配置目录：\e[0m $BASE_DIR"
-[ "$NET" = "" ] && echo -e "\e[36m端口映射：\e[0m $PORT1:4567  $PORT2:80"
+[ "$NET" = "" ] && echo -e "\e[36m端口映射：\e[0m $PORT1:1978  $PORT2:80"
 
-echo -e "\e[33m默认端口变更为4567\e[0m"
+echo -e "\e[33m默认端口变更为1978\e[0m"
 
 mkdir -p $BASE_DIR
 
@@ -119,7 +119,7 @@ fi
 echo -e "\e[33m重启应用\e[0m"
 docker rm -f xiaoya-tvbox 2>/dev/null
 if [ "$NET" = "" ]; then
-  docker run -d -p $PORT1:4567 -p $PORT2:80 -e ALIST_PORT=$PORT2 -v "$BASE_DIR":/data $MOUNT --restart=always --name=xiaoya-tvbox haroldli/xiaoya-tvbox:${TAG}
+  docker run -d -p $PORT1:1978 -p $PORT2:80 -e ALIST_PORT=$PORT2 -v "$BASE_DIR":/data $MOUNT --restart=always --name=xiaoya-tvbox haroldli/xiaoya-tvbox:${TAG}
 else
   docker run -d $NET -v "$BASE_DIR":/data $MOUNT --restart=always --name=xiaoya-tvbox haroldli/xiaoya-tvbox:${TAG}
 fi
@@ -145,7 +145,7 @@ else
 fi
 echo ""
 
-echo -e "\e[33m默认端口变更为4567\e[0m"
+echo -e "\e[33m默认端口变更为1978\e[0m"
 
 if [ "$LOGS" = "true" ]; then
   echo ""
